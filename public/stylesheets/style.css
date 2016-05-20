@@ -1,0 +1,33 @@
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+body {
+  font-family: 'Inconsolata';
+  background: #A7D5D1;
+  color: #333;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.container {
+  max-width: 600px;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+
+a {
+  color: #00B7FF;
+}
+
+input {
+  margin-bottom: 40px;
+}
+
+.movie-results {
+  padding: 20px;
+}
+
+.movie-results h1 {
+
+}
