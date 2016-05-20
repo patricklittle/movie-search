@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var needle = require('needle');
-
+var merge = require('merge');
 var app = express();
 
 // view engine setup
@@ -28,15 +28,31 @@ app.get('/movie', function(req, res){
 
   console.log(req.query.title);
 
-  var omdbapi = 'http://www.omdbapi.com/?t=';
+  var omdbapi = 'http://www.omdbapi.com/?tomatoes=true&t=';
+  var giphy = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=';
+
 
   needle.get(omdbapi + req.query.title, function(error, response) {
     if (!error && response.statusCode == 200) {
-      var omdbapiResult = response.body;
-      res.send(omdbapiResult);
+      var omdbJSON = response.body;
+      console.log('got omdb data');
     }
+
+    needle.get(giphy + req.query.title, function(error, response) {
+      if (!error && response.statusCode == 200) {
+        var giphyJSON = response.body;
+
+        console.log('got giphy data!');
+
+        var concatJSON = merge(omdbJSON, giphyJSON);
+
+        res.send(concatJSON);
+
+      };
+    });
   });
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
